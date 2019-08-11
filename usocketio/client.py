@@ -111,7 +111,7 @@ def connect(uri):
     socketio._send_packet(PACKET_PING, 'probe')
 
     # Send a follow-up poll
-    _connect_http(uri.hostname, uri.port, path + '&transport=polling')
+    # _connect_http(uri.hostname, uri.port, path + '&transport=polling')
 
     # We should receive an answer to our probe
     packet = socketio._recv()
