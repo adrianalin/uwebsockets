@@ -2,7 +2,7 @@
 Micropython Socket.IO client.
 """
 
-import logging
+
 import ure as re
 import ujson as json
 import usocket as socket
@@ -11,7 +11,7 @@ from ucollections import namedtuple
 from .protocol import *
 from .transport import SocketIO
 
-LOGGER = logging.getLogger(__name__)
+
 
 URL_RE = re.compile(r'http://([A-Za-z0-9\-\.]+)(?:\:([0-9]+))?(/.+)?')
 URI = namedtuple('URI', ('hostname', 'port', 'path'))
@@ -33,7 +33,7 @@ def _connect_http(hostname, port, path):
 
         def send_header(header, *args):
             if __debug__:
-                LOGGER.debug(str(header), *args)
+                print(str(header), *args)
 
             sock.write(header % args + '\r\n')
 
@@ -84,7 +84,7 @@ def connect(uri):
 
     assert packet_type == PACKET_OPEN
     params = json.loads(params)
-    LOGGER.debug("Websocket parameters = %s", params)
+    print("Websocket parameters = {}".format(params))
 
     assert 'websocket' in params['upgrades']
 
@@ -92,7 +92,7 @@ def connect(uri):
     path += '&sid={}'.format(sid)
 
     if __debug__:
-        LOGGER.debug("Connecting to websocket SID %s", sid)
+        print("Connecting to websocket SID {}".format(sid))
 
     # Start a websocket and send a probe on it
     ws_uri = 'ws://{hostname}:{port}{path}&transport=websocket'.format(
